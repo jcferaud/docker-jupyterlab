@@ -52,5 +52,5 @@ networks:
 # volumes: volumes creation for persistant data
 # ----------------------------------------------
 volumes:
- volume_temp:
+ volume_temp: 
    driver: local  
