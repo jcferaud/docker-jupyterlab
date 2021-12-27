@@ -2,19 +2,15 @@
 ## Jupyter: image creation
 ##
 FROM debian:11.1
-#FROM lab/debian:10.0
 
 MAINTAINER "your name" <your email>
 
 # expose ports for other containers
 EXPOSE 8888
 
-
-
 # Set up directory requirements
 RUN mkdir -p /opt/projet01/temp
 RUN mkdir -p /opt/projet01/data-shared
-
 RUN mkdir -p /opt/jupyter/logs
 RUN mkdir -p /opt/jupyter/python-code
 RUN mkdir -p /opt/jupyter/bash-code
@@ -39,7 +35,6 @@ COPY scripts/password-convert-sha256.py /opt/jupyter/scripts
 ARG USER_UID
 ARG GROUP_GID
 ARG UNAME
-
 ENV USER_UID=$USER_UID
 ENV GROUP_GID=$GROUP_GID
 ENV UNAME=$UNAME
@@ -51,11 +46,11 @@ ENV LOGENTRY="docker-entrypoint.log"
 ENV LOGERROR="docker-entrypoint_error.log"
 ENV NOTEBOOKDIR="/opt/jupyter/notebook01"
 
+# Install jupyter
 RUN chmod -R 755 /opt/jupyter
 RUN chown -R $USER_UID:$GROUP_GID /opt/jupyter
 RUN sh /opt/jupyter/scripts/docker-create-user.sh
 RUN sh /opt/jupyter/scripts/docker-install-software.sh
-
 
 # change volume owner to apache owner
 RUN chmod -R 755 /opt/jupyter
@@ -71,4 +66,3 @@ ENV HOME /opt/jupyter
 # start bootstrap script
 USER $USER_UID:$GROUP_GID
 ENTRYPOINT ["/opt/jupyter/scripts/docker-entrypoint.sh"]
-#CMD [ "bash" ]
