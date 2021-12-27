@@ -21,7 +21,7 @@ services:
    - debian
   environment:
     JUPYTER_SETUP: 'notebook02'
-    JUPYTER_PASSWORD: 'password'
+    JUPYTER_PASSWORD: 'passwordtochange'
     DOCKER_DEBUG_FLAG: 'no'
   healthcheck:
        test: ['CMD', '/opt/jupyter/scripts/docker-healthcheck.sh']
