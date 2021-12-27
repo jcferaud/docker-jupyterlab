@@ -1,1 +1,56 @@
-...
+version: '3.8'
+services:
+
+# ----------------------------------------------
+# jupyter docker creation
+# ----------------------------------------------
+ jupyter:
+  build:
+   context: jupyter/3.2
+   args:
+    USER_UID: 1001
+    GROUP_GID: 1002
+    UNAME: 'admin'
+  image: lab/jupyter:3.2
+  container_name: 'jupyter'
+  hostname: jupyter
+  tty: true
+  networks:
+   - lab
+  links:
+   - debian
+  environment:
+    JUPYTER_SETUP: 'notebook02'
+    JUPYTER_PASSWORD: 'password'
+    DOCKER_DEBUG_FLAG: 'no'
+  healthcheck:
+       test: ['CMD', '/opt/jupyter/scripts/docker-healthcheck.sh']
+       timeout: 5s
+       interval: 30s
+       start_period: 10s
+       retries: 3
+  restart: always
+  ports:
+   - '8899:8888'
+  volumes:
+   - /lab/projet01/docker-code/jupyter/3.2/bash-code:/opt/jupyter/bash-code
+   - /lab/projet01/docker-code/jupyter/3.2/python-code:/opt/jupyter/python-code
+   - /lab/projet01/docker-code/jupyter/3.2/jupyter-code:/opt/jupyter/jupyter-code
+   - /lab/projet01/docker-data/data-jupyter/datasets:/opt/jupyter/datasets  
+   - /lab/projet01/docker-data/data-shared:/opt/projet01/data-shared
+   - volume_temp:/opt/projet01/temp  
+
+
+# ----------------------------------------------
+# networks
+# ----------------------------------------------
+networks:
+   lab:
+     driver: bridge     
+
+# ----------------------------------------------
+# volumes: volumes creation for persistant data
+# ----------------------------------------------
+volumes:
+ volume_temp:
+   driver: local  
