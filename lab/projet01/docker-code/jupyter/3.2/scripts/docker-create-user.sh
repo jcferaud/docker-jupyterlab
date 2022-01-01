@@ -21,6 +21,7 @@ if [ -z "$test_docker_user_exists" ]; then
    if [ $USER_UID -gt 999 ]; then useradd -u $USER_UID -g $UNAME -s /sbin/nologin $UNAME; fi
    mkdir /home/$UNAME
    chown $USER_UID:$GROUP_GID /home/$UNAME
+   echo "$UNAME:$UNAME" | chpasswd
 else
    UNAME=$test_docker_user_exists
    echo "test: user $USER_UID exists !" >> $LOGFILE;
