@@ -23,6 +23,7 @@ apt-get install -y net-tools
 apt-get install -y vim
 apt-get install -y tini
 apt-get install -y curl
+apt-get install -y python3-tk
 
 # install python3 + pip3 + jupyter
 apt-get install -y python3-pip python3-dev
@@ -37,6 +38,13 @@ pip3 install statsmodels
 pip3 install matplotlib
 pip3 install sklearn
 pip3 install mglearn
+pip3 install seaborn
+pip3 install plotly
+pip3 install tensorflow
+pip3 install keras
+pip3 install bokeh
+pip3 install spacy
+pip3 install nltk
 
 
 # end of script
